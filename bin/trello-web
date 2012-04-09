@@ -14,7 +14,7 @@ Vegas::Runner.new(GithubTrello::Server, "trello-web", {
       puts "We've generated an example one for you, but you need to configure it still."
 
       File.open(path, "w+") do |f|
-        f.write("#board_ids:\n#  [repo name]: [board id]\n#oauth_token: [token]\n#api_key: [key]#on_start:\n#  move_to: [list id]\n#on_close:\n#  move_to: [list id]\n#  archive: false\n#  on_deploy:\n#  move_to: [list id]\n#  archive: true")
+        f.write("# NOTE: Due to a Trello API bug, currently only archive is supported and not move_to.\n\n#board_ids:\n#  [repo name]: [board id]\n#oauth_token: [token]\n#api_key: [key]\n#on_start:\n#  move_to: [list id]\n#on_close:\n#  move_to: [list id]\n#  archive: false\n#on_deploy:\n#  move_to: [list id]\n#  archive: true")
       end
 
       exit
