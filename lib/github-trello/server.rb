@@ -28,17 +28,6 @@ module GithubTrello
         match = commit["message"].match(/((case|card|close|archive|fix)e?s? \D?([0-9]+))/i)
         next unless match and match[3].to_i > 0
 
-        # Determine the action to take
-        update_config = case match[2].downcase
-          when "case", "card" then config["on_start"]
-          when "close", "fix" then config["on_close"]
-          when "archive" then {:archive => true}
-        end
-
-        unless update_config.is_a?(Hash)
-          raise "Updating card with #{match[2].downcase} type, but no config found to indicate what to do"
-        end
-
         results = http.get_card(board_id, match[3].to_i)
         unless results
           puts "[ERROR] Cannot find card matching ID #{match[3]}"
@@ -54,11 +43,22 @@ module GithubTrello
 
         http.add_comment(results["id"], message)
 
+        # Determine the action to take
+        update_config = case match[2].downcase
+          when "case", "card" then config["on_start"]
+          when "close", "fix" then config["on_close"]
+          when "archive" then {:archive => true}
+        end
+
+        next unless update_config.is_a?(Hash)
+
         # Modify it if needed
         to_update = {}
-        unless results["idList"] == update_config["move_to"]
-          to_update[:idList] = update_config["move_to"]
-        end
+
+        # Disabled for now due to a Trello bug
+        #unless results["idList"] == update_config["move_to"]
+        #  to_update[:idList] = update_config["move_to"]
+        #end
 
         if !results["closed"] and update_config["archive"]
           to_update[:closed] = true
