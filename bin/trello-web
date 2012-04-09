@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
+
+require "vegas"
+require "github-trello/server"
+
+Vegas::Runner.new(GithubTrello::Server, "trello-web", {
+  :launch_path => lambda {|vegas|
+    path = File.join(vegas.app_dir, "trello.yml")
+    if File.exists?(path)
+      GithubTrello::Server.config = YAML::load(File.read(path))
+    else
+      puts "[WARNING] No configuration found at #{path}."
+      puts "We've generated an example one for you, but you need to configure it still."
+
+      File.open(path, "w+") do |f|
+        f.write("#board_ids:\n#  [repo name]: [board id]\n#oauth_token: [token]\n#api_key: [key]#on_start:\n#  move_to: [list id]\n#on_close:\n#  move_to: [list id]\n#  archive: false\n#  on_deploy:\n#  move_to: [list id]\n#  archive: true")
+      end
+
+      exit
+    end
+
+    nil
+  }
+})
