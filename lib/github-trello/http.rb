@@ -20,6 +20,10 @@ module GithubTrello
       http_request(:post, "/1/cards/#{card_id}/actions/comments", :body => "text=#{CGI::escape(comment)}")
     end
 
+    def get_cards(list_id)
+      http_request(:get, "/1/lists/#{list_id}/cards", :params => {:fields => "idList"})
+    end
+
     private
     def http_request(method, request_path, args={})
       request_path << "?"

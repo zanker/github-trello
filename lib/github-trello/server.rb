@@ -71,8 +71,35 @@ module GithubTrello
       ""
     end
 
+    post "/deployed/:repo" do
+      config, http = self.class.config, self.class.http
+      if !config["on_deploy"]
+        raise "Deploy triggered without a on_deploy config specified"
+      elsif !config["on_close"] or !config["on_close"]["move_to"]
+        raise "Deploy triggered and either on_close config missed or move_to is not set"
+      end
+
+      update_config = config["on_deploy"]
+
+      to_update = {}
+      if update_config["move_to"] and update_config["move_to"][params[:repo]]
+        to_update[:idList] = update_config["move_to"][params[:repo]]
+      end
+
+      if update_config["archive"]
+        to_update[:closed] = true
+      end
+
+      cards = JSON.parse(http.get_cards(config["on_close"]["move_to"]))
+      cards.each do |card|
+        http.update_card(card["id"], to_update)
+      end
+
+      ""
+    end
+
     get "/" do
-      " "
+      ""
     end
 
     def self.config=(config)
