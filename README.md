@@ -21,8 +21,23 @@ Go to https://trello.com/1/appKey/generate to get your key, then go to _https://
 
 You can get the board id from the URL, for example https://trello.com/board/trello-development/4d5ea62fd76aa1136000000c the board id is _4d5ea62fd76aa1136000000ca_.
 
-There are 3 actions you can configure to decide what happens to a card. Currently due to a bug in Trello's API, you cannot move a card to another list through the API, so only __archive__ will work. The code is already in, just waiting on Trello to fix the bug.
+There are 3 actions you can configure to decide what happens to a card, __on_start__ for case/card, __on_close__ for close/fix. __on_deploy__ requires an additional hookin to your deployment that you can read below.
 
-To do
+Deployment
 -
-Once Trello fixes the list API bug, I'll be implementing an on deploy action for people who want to be able to move cards from list A to B, such as moving from a "Pending Deployment" to "Live" or just archiving the cards.
+
+If you are moving your cards to a new list (such as "Live") after deployment, then you must use the __move_to__ option in __on_close__. Unlike __on_start__ or __on_close__, you must also specify the repo name for __move_to__.
+
+You indicate a deploy happened through sending a POST request to __http://foobar.com:4000/deployed/[repo name]__. An example of a Capistrano deployment script:
+
+    require "net/https"
+    Capistrano::Configuration.instance(:must_exist).load do
+      after "deploy:update" do
+        uri = URI("https://foobar.com:4000/deployed/foo-bar")
+
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = uri.scheme == "https"
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.request_post(uri.path, "")
+      end
+    end
