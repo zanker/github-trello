@@ -14,8 +14,24 @@ Vegas::Runner.new(GithubTrello::Server, "trello-web", {
       puts "[WARNING] No configuration found at #{path}."
       puts "We've generated an example one for you, but you need to configure it still."
 
+      config = <<YAML
+oauth_token: [token]
+api_key: [key]
+on_start:
+  move_to: [list id]
+  archive: true
+on_close:
+  move_to: [list id]
+  archive: true
+# See README for deployment usage
+on_deploy:
+  move_to:
+    [repo name]: [list id]
+  archive: true
+YAML
+
       File.open(path, "w+") do |f|
-        f.write("# NOTE: Due to a Trello API bug, currently only archive is supported and not move_to.\n\nboard_ids:\n  [repo name]: [board id]\noauth_token: [token]\napi_key: [key]\non_start:\n  move_to: [list id]\non_close:\n  move_to: [list id]\n  archive: false\non_deploy:\n  move_to: [list id]\n  archive: true")
+        f.write(config)
       end
 
       exit
