@@ -55,10 +55,9 @@ module GithubTrello
         # Modify it if needed
         to_update = {}
 
-        # Disabled for now due to a Trello bug
-        #unless results["idList"] == update_config["move_to"]
-        #  to_update[:idList] = update_config["move_to"]
-        #end
+        unless results["idList"] == update_config["move_to"]
+          to_update[:idList] = update_config["move_to"]
+        end
 
         if !results["closed"] and update_config["archive"]
           to_update[:closed] = true
@@ -73,7 +72,7 @@ module GithubTrello
     end
 
     get "/" do
-      "Nothing to see here"
+      " "
     end
 
     def self.config=(config)
