@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["zach.anker@gmail.com"]
   s.homepage    = "http://github.com/zanker/github-trello"
   s.summary     = "Github -> Trello integration"
+  s.description = "Enables managing Trello cards through Github posthooks and Git commits"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = "github-trello"
