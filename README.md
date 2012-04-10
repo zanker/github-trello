@@ -17,7 +17,7 @@ On the first run, it will create an empty configuration file for you that you wi
 
 You will need to get your api key and OAuth token with read/write access that won't expire for this to work. You can either use your own account, or create a separate deployment one for this.
 
-Go to https://trello.com/1/appKey/generate to get your key, then go to _https://trello.com/1/authorize?response_type=token&name=Trello+Github+Integration&scope=read,write&expiration=never&key=[Your Key Here]_ replacing __[Your Key Here]__ with the key Trello gave you. Authorize the request and then add the token and key to your trello.yml file.
+Go to https://trello.com/1/appKey/generate to get your key, then go to _https://trello.com/1/authorize?response_type=token&name=Trello+Github+Integration&scope=read,write&expiration=never&key=[your-key-here]_ replacing __[your-key-here]__ with the key Trello gave you. Authorize the request and then add the token and key to your trello.yml file.
 
 You can get the board id from the URL, for example https://trello.com/board/trello-development/4d5ea62fd76aa1136000000c the board id is _4d5ea62fd76aa1136000000ca_.
 
@@ -28,7 +28,7 @@ Deployment
 
 If you are moving your cards to a new list (such as "Live") after deployment, then you must use the __move_to__ option in __on_close__. Unlike __on_start__ or __on_close__, you must also specify the repo name for __move_to__.
 
-You indicate a deploy happened through sending a POST request to __http://foobar.com:4000/deployed/[repo name]__. An example of a Capistrano deployment script:
+You indicate a deploy happened through sending a POST request to __http://foobar.com:4000/deployed/[repo-name]__. An example of a Capistrano deployment script:
 
     require "net/https"
     Capistrano::Configuration.instance(:must_exist).load do
