@@ -35,7 +35,7 @@ You indicate a deploy happened through sending a POST request to __http://foobar
       after "deploy:update" do
         uri = URI("https://foobar.com:4000/deployed/foo-bar")
 
-        http = Net::HTTP.new(url.host, url.port)
+        http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         http.request_post(uri.path, "")
