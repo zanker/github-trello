@@ -26,12 +26,11 @@ module GithubTrello
       args[:params] ||= {}
       args[:params][:key] = @api_key
       args[:params][:token] = @token
-      args[:params].each {|k, v| request_path << "#{k}=#{CGI::escape(v)}&"}
+      args[:params].each {|k, v| request_path << "#{k}=#{CGI::escape(v.to_s)}&"}
 
       http = Net::HTTP.new(@uri.host, @uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.set_debug_output($stdout)
 
       http.start
 
