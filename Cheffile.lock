@@ -1,0 +1,40 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    runit (0.15.0)
+
+GIT
+  remote: git://github.com/fnichol/chef-rvm.git
+  ref: v0.8.6
+  sha: f5b89cb4dafa261afb5b18c4d0936aaf302e2a15
+  specs:
+    rvm (0.8.6)
+
+GIT
+  remote: https://github.com/fnichol/chef-apt
+  ref: master
+  sha: cb998dfdeffbcbb6805527b046b411206d6c77d6
+  specs:
+    apt (1.2.0)
+
+GIT
+  remote: https://github.com/fnichol/chef-git.git
+  ref: master
+  sha: 6c19cbefcdad5ec0f62a64dae1f656d660698ea3
+  specs:
+    git (0.9.0)
+      runit (>= 0.0.0)
+
+GIT
+  remote: https://github.com/opscode-cookbooks/build-essential.git
+  ref: master
+  sha: 54dd15918263c09a4dbac8709dd24dd67dd2edbe
+  specs:
+    build-essential (1.0.0)
+
+DEPENDENCIES
+  apt (>= 0)
+  build-essential (>= 0)
+  git (>= 0)
+  rvm (>= 0)
+

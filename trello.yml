@@ -9,5 +9,5 @@ on_close:
 # See README for deployment usage
 on_deploy:
   move_to:
-    [repo name]: [list id]
+    4f512b71b083fcdc161c654c/55: 4fa0065c8849bebd150d16d6
   archive: true

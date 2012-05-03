@@ -1,2 +1,6 @@
 trello_web.url
+trello_web.log
 .idea
+cookbooks
+tmp
+.vagrant
