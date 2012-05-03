@@ -1,0 +1,13 @@
+oauth_token: 095d01008fa0f782ecac8dd81949ea479aefcd0227e7e3eeb48a5af471aa6d71
+api_key: 1eebeed128803c95f493a48a2b6deaf4
+on_start:
+  move_to: 4f512bb1b083fcdc161cec61
+  archive: true
+on_close:
+  move_to: 4fa2a1bcb42dd9b30f09110c
+  archive: true
+# See README for deployment usage
+on_deploy:
+  move_to:
+    [repo name]: [list id]
+  archive: true
