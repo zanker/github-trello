@@ -98,6 +98,30 @@ module GithubTrello
       ""
     end
 
+    POST "/issue" do
+      config, http = self.class.config, self.class.http
+
+      payload = JSON.parse(params[:payload])
+      puts (payload)
+      #TODO: check for issue creation
+      list_id = config["issue_list"][payload["repository"]["name"]]
+      unless list_id
+        puts "[ERROR] Issue from #{payload["repository"]["name"]} but no list_id entry found in config"
+        return
+      end
+
+      #parse issue to create a nice card name and description with a link to the issue
+      card_name = "#{payload["title"]}"
+      card_desc = "#{payload["body"]}\n\nGithub [issue #{payload["number"]}](#{payload["html_url"]})"
+      card = {}
+      card[:name] = card_name
+      card[:desc] = card_desc
+      card[:idList] = list_id
+      http.add_card(card)
+
+      ""
+    end
+
     get "/" do
       ""
     end

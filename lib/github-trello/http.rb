@@ -13,7 +13,7 @@ module GithubTrello
     end
 
     def add_card(params)
-      http_request(:post, "/1/cards}", :params => params)
+      http_request(:post, "/1/cards", :params => params)
     end
 
     def update_card(card_id, params)
