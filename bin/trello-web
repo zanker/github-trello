@@ -17,6 +17,9 @@ Vegas::Runner.new(GithubTrello::Server, "trello-web", {
       config = <<YAML
 oauth_token: [token]
 api_key: [key]
+developer_portal:
+  path: "/var/www/developer-portal"
+  pid: "/var/www/developer-portal/tmp/pids/unicorn.pid"
 on_start:
   move_to: [list id]
   archive: true
