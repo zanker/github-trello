@@ -12,6 +12,10 @@ module GithubTrello
       http_request(:get, "/1/boards/#{board_id}/cards/#{card_id}", :params => {:fields => "idList,closed"})
     end
 
+    def add_card(params)
+      http_request(:post, "/1/cards", :params => params)
+    end
+
     def update_card(card_id, params)
       http_request(:put, "/1/cards/#{card_id}", :params => params)
     end
