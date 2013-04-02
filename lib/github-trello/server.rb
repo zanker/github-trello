@@ -55,8 +55,14 @@ module GithubTrello
         # Modify it if needed
         to_update = {}
 
-        unless results["idList"] == update_config["move_to"]
-          to_update[:idList] = update_config["move_to"]
+        if update_config["move_to"].is_a?(Hash)
+          move_to = update_config["move_to"][payload["repository"]["name"]]
+        else
+          move_to = update_config["move_to"]
+        end
+
+        unless results["idList"] == move_to
+          to_update[:idList] = move_to
         end
 
         if !results["closed"] and update_config["archive"]

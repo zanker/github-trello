@@ -25,6 +25,11 @@ on_start:
 on_close:
   move_to: [list id]
   archive: true
+# Alternatively, you can specify move_to as a hash of repo name -> list id
+on_close/on_start:
+  move_to:
+    [repo name]: [list id]
+
 # See README for deployment usage
 on_deploy:
   move_to:
