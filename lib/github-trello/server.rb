@@ -96,7 +96,13 @@ module GithubTrello
         to_update[:closed] = true
       end
 
-      cards = JSON.parse(http.get_cards(config["on_close"]["move_to"]))
+      if config["on_close"]["move_to"].is_a?(Hash)
+        target_board = config["on_close"]["move_to"][params[:repo]]
+      else
+        target_board = config["on_close"]["move_to"]
+      end
+
+      cards = JSON.parse(http.get_cards(target_board))
       cards.each do |card|
         http.update_card(card["id"], to_update)
       end
