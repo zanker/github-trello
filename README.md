@@ -23,6 +23,8 @@ You can get the board id from the URL, for example https://trello.com/board/trel
 
 There are 3 actions you can configure to decide what happens to a card, __on_start__ for case/card, __on_close__ for close/fix. __on_deploy__ requires an additional hookin to your deployment that you can read below.
 
+You can find out list ids at the following url : `https://api.trello.com/1/board/your_board_id/lists?key=your_key&token=your_token`
+
 Deployment
 -
 
